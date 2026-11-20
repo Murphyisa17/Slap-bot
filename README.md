@@ -23,6 +23,12 @@ score. Chin strikes are illegal in the sport, so a third sensor zeroes the
 score when it exceeds both cheek sensors by a set margin. Results display
 on a 16x2 LCD over I2C.
 
+## Build
+
+![Raspberry Pi Pico 2 W and CD4051 multiplexer on the breadboard](pico_mux.jpg)
+
+![CD4051 breakout with the three FSR voltage dividers on Y0, Y1 and Y3](mux_closeup.jpg)
+
 ## Files
 
 - `slapbot.py` — MicroPython firmware
@@ -47,7 +53,10 @@ so the three are not sampled simultaneously.
 Peak readings reached about 93% of the ADC's full scale, so a harder strike
 would have clipped.
 
-FSRs creep: in a logged session the resting floor between strikes climbed
-from roughly 2,700 to 22,000 counts. Recalibrating the baseline before each
-trial handled most of this, but a small percentage of clean cheek strikes
-still registered as chin hits.
+FSRs creep: they do not fully recover their resting resistance after
+repeated loading. In the logged session below, the resting floor between
+strikes climbs steadily instead of returning to zero. Recalibrating the
+baseline before each trial handled most of this, but a small percentage of
+clean cheek strikes still registered as chin hits.
+
+![All three FSR channels over a logged session, showing upward drift](matlab_plot.png)
